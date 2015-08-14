@@ -44,7 +44,6 @@ module TomcatCookbook
           end
 
           package new_resource.package_name do
-            version new_resource.version if new_resource.version
             action :upgrade
             only_if { new_resource.install_method == 'package' }
           end

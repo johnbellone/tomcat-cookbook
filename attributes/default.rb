@@ -6,6 +6,25 @@
 # Copyright 2015 Bloomberg Finance L.P.
 #
 
+default['tomcat']['version'] = '7.0.63'
+default['tomcat']['service_name'] = 'tomcat'
+default['tomcat']['service_user'] = 'tomcat'
+default['tomcat']['service_group'] = 'tomcat'
+
+default['tomcat']['service']['binary_url'] = "http://psg.mtu.edu/pub/apache/tomcat/tomcat-%{major_version}/v%{version}/bin/apache-tomcat-%{version}.tar.gz"
+default['tomcat']['service']['binary_checksum'] = 'b5d878a17de2421a078d8907583076b507e67dbf1567c6f4346d70c88473f8ad'
+
+case node['platform_family']
+when 'rhel', 'fedora'
+  default['tomcat']['service']['install_method'] = 'package'
+  default['tomcat']['service']['package_name'] = 'tomcat'
+when 'debian'
+  default['tomcat']['service']['install_method'] = 'package'
+  default['tomcat']['service']['package_name'] = 'tomcat7'
+else
+  default['tomcat']['service']['install_method'] = 'binary'
+end
+
 default['tomcat']['base_version'] = 6
 default['tomcat']['base_instance'] = "tomcat#{node['tomcat']['base_version']}"
 default['tomcat']['port'] = 8080
