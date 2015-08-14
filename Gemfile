@@ -1,41 +1,44 @@
 source 'https://rubygems.org'
+gem 'poise', '~> 2.2'
+gem 'poise-service', '~> 1.0'
+gem 'poise-boiler'
 
 group :lint do
-  gem 'foodcritic', '~> 3.0'
-  gem 'rubocop', '~> 0.18'
-  gem 'rainbow', '< 2.0'
-end
-
-group :unit do
-  gem 'berkshelf',  '~> 3.1'
-  gem 'chefspec',   '~> 3.4'
+  gem 'rubocop'
+  gem 'foodcritic'
 end
 
 group :kitchen_common do
-  gem 'test-kitchen', '~> 1.2'
+  gem 'test-kitchen', '~> 1.4'
 end
 
 group :kitchen_vagrant do
-  gem 'kitchen-vagrant', '~> 0.11'
+  gem 'kitchen-vagrant', '~> 0.17'
 end
 
 group :kitchen_cloud do
-  gem 'kitchen-digitalocean'
-  gem 'kitchen-ec2'
-  gem 'kitchen-joyent'
-  gem 'kitchen-gce'
+  gem 'kitchen-openstack', '~> 1.8'
+end
+
+group :unit do
+  gem 'berkshelf'
+  gem 'chefspec'
+end
+
+group :integration do
+  gem 'serverspec'
 end
 
 group :development do
-  gem 'ruby_gntp'
-  gem 'growl'
-  gem 'rb-fsevent'
-  gem 'guard', '~> 2.4'
+  gem 'awesome_print'
+  gem 'guard'
   gem 'guard-kitchen'
-  gem 'guard-foodcritic'
   gem 'guard-rspec'
   gem 'guard-rubocop'
   gem 'rake'
-  gem 'fauxhai'
-  gem 'pry-nav'
+  gem 'stove'
+end
+
+group :doc do
+  gem 'yard'
 end
