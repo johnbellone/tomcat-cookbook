@@ -3,7 +3,7 @@
 # License: Apache 2.0
 #
 # Copyright 2010, Chef Software, Inc.
-# Copyright 2015 Bloomberg Finance L.P.
+# Copyright 2015, Bloomberg Finance L.P.
 #
 require 'poise'
 
@@ -18,13 +18,13 @@ module TomcatCookbook
       property(:group, kind_of: String, default: 'tomcat')
 
       property(:home_dir, kind_of: String, default: '/usr/share/tomcat')
-      property(:temp_dir, kind_of: String, default: '/var/tmp/tomcat')
+      property(:tmp_dir, kind_of: String, default: '/var/tmp/tomcat')
       property(:webapps_dir, kind_of: String, default: '/var/lib/tomcat/webapps')
       property(:work_dir, kind_of: String, default: '/var/cache/tomcat')
 
       action(:create) do
         notifying_block do
-          config_dir = Dir.dirname(basenanew_resource.path)
+          config_dir = Dir.dirname(new_resource.path)
           context_dir = File.join(config_dir, 'Catalina', 'localhost')
           directory [config_dir,
                      context_dir,

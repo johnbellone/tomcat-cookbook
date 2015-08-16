@@ -3,7 +3,7 @@
 # License: Apache 2.0
 #
 # Copyright 2010, Chef Software, Inc.
-# Copyright 2015 Bloomberg Finance L.P.
+# Copyright 2015, Bloomberg Finance L.P.
 #
 
 node.default['java']['jdk_version'] = '7'
@@ -15,7 +15,6 @@ poise_service_user node['tomcat']['service_user'] do
 end
 
 tomcat_config node['tomcat']['service_name'] do |r|
-  instance_name node['tomcat']['instance_name']
   owner node['tomcat']['service_user']
   group node['tomcat']['service_group']
 

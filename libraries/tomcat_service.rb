@@ -3,7 +3,7 @@
 # License: Apache 2.0
 #
 # Copyright 2010, Chef Software, Inc.
-# Copyright 2015 Bloomberg Finance L.P.
+# Copyright 2015, Bloomberg Finance L.P.
 #
 require 'poise_service/service_mixin'
 
@@ -20,7 +20,7 @@ module TomcatCookbook
       property(:group, kind_of: String, default: 'tomcat')
 
       property(:install_method, equal_to: %w{package binary}, default: 'binary')
-      property(:version, kind_of: String, default: '8.0.24')
+      property(:version, kind_of: String, default: '7.0.63')
       property(:package_name, kind_of: String)
       property(:binary_url, kind_of: String)
 
@@ -36,6 +36,8 @@ module TomcatCookbook
       include PoiseService::ServiceMixin
 
       def action_enable
+        base_version = new_resource.version.partition('.').first
+
         notifying_block do
           directory new_resource.log_dir do
             recursive true
@@ -46,6 +48,14 @@ module TomcatCookbook
           package new_resource.package_name do
             action :upgrade
             only_if { new_resource.install_method == 'package' }
+          end
+
+          libartifact_file "tomcat-#{new_resource.version}" do
+            artifact_name 'tomcat'
+            artifact_version new_resource.version
+            remote_url new_resource.binary_url % { major_version: base_version, version: new_resource.version }
+            remote_checksum new_resource.binary_checksum
+            only_if { new_resource.install_method == 'binary' }
           end
         end
         super
